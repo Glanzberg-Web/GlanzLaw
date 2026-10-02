@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160" role="img" aria-labelledby="title desc">
+  <title id="title">JG monogram</title><desc id="desc">Glanzberg Law Firm monogram</desc>
+  <rect width="160" height="160" rx="8" fill="#0b1f33"/>
+  <path d="M28 31h49v10H39v53c0 16 7 25 22 25 7 0 12-2 17-5V83H61V73h29v47c-8 7-18 10-30 10-21 0-32-13-32-36V31Z" fill="#f5f0e7"/>
+  <path d="M90 31h42v10h-30v78h30v10H90V31Z" fill="#c19a5b" opacity=".95"/>
+</svg>
