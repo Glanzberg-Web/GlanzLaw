@@ -1,39 +1,73 @@
 # Glanzberg Web Forms
 
-Centralized Cloudflare Worker used by Glanzberg Web client websites to turn contact-form submissions into transactional email.
+Centralized Cloudflare Worker for contact forms on Glanzberg Web client sites.
 
 ## Architecture
 
 ```text
-client website -> Cloudflare Worker -> Brevo -> client inbox
+client website -> Cloudflare Worker -> Resend -> client inbox
 ```
 
-Client websites send a public `_site_id`. The Worker maps that ID to a server-side recipient and an allowlist of valid website origins. The browser never controls the destination email address.
+Each website sends a public `_site_id`. The Worker maps that ID to:
 
-The first configured client is:
+- the permitted website origin(s)
+- the client's destination inbox
+- the authenticated sender address for that client's domain
 
-- `glanzlaw` -> `jack@glanzlaw.com`
-- allowed origins: `https://glanzlaw.com`, `https://www.glanzlaw.com`
+The browser never controls the destination email address or sender identity.
+
+## DNS model
+
+Each client gets a dedicated sending subdomain, using the convention:
+
+```text
+mail.<client-domain>
+```
+
+For GlanzLaw:
+
+```text
+mail.glanzlaw.com
+```
+
+The Worker sends as:
+
+```text
+Glanzberg Law Website <website@mail.glanzlaw.com>
+```
+
+while setting the visitor's address as Reply-To.
+
+Resend provides the exact DNS records required for domain verification. Add those records alongside the DNS records already used for the client's GitHub Pages site. Do not replace the website's GitHub Pages records.
+
+## First configured client
+
+- site ID: `glanzlaw`
+- website: `https://glanzlaw.com`
+- recipient: `jack@glanzlaw.com`
+- sender domain: `mail.glanzlaw.com`
+- sender: `website@mail.glanzlaw.com`
 
 ## Why this scales
 
-Adding a client requires one new entry in `SITES` plus a `siteId` in that client's frontend configuration. Client DNS does not need to change.
+Adding a client requires:
 
-The sender identity is owned centrally by Glanzberg Web. Replies use the visitor's email address through the email provider's Reply-To field.
+1. Add/confirm the site's GitHub Pages DNS records.
+2. Add `mail.<client-domain>` to Resend.
+3. Add the DNS records Resend supplies.
+4. Verify the sending domain in Resend.
+5. Add one entry to `SITES` in `src/index.js`.
+6. Set the client's frontend `siteId`.
+7. Deploy the Worker.
 
-## Provider choice
-
-This prototype uses Brevo's transactional email API. A sender address can be verified through an email confirmation without requiring client DNS changes. Domain authentication can be added later to the Glanzberg Web sender domain for better deliverability without modifying any client's DNS.
+One Worker and one Resend integration can route forms for many client websites.
 
 ## Cloudflare setup
 
 1. Create a Cloudflare account.
 2. In **Workers & Pages**, create a Worker named `glanzberg-web-forms`.
-3. Deploy this folder with Wrangler, or connect the GitHub repository and set this folder as the Worker root.
-4. Add the following Worker environment values:
-   - Secret: `BREVO_API_KEY`
-   - Variable: `FROM_EMAIL` = the sender email address verified in Brevo
-   - Variable: `FROM_NAME` = `Glanzberg Web Forms` (already supplied in `wrangler.jsonc`)
+3. Deploy this folder with Wrangler or connect it through your normal deployment workflow.
+4. Add a Worker secret named `RESEND_API_KEY`.
 5. Deploy and copy the resulting `workers.dev` URL.
 
 ### Wrangler commands
@@ -42,25 +76,37 @@ This prototype uses Brevo's transactional email API. A sender address can be ver
 cd forms-worker
 npm install
 npx wrangler login
-npx wrangler secret put BREVO_API_KEY
+npx wrangler secret put RESEND_API_KEY
 npx wrangler deploy
 ```
 
-Set `FROM_EMAIL` in the Cloudflare Worker dashboard before production use.
+Never put the Resend API key in GitHub Pages, `assets/js/config.js`, or any browser-side JavaScript.
 
-## Brevo setup
+## Resend setup for GlanzLaw
 
-1. Create a Brevo account.
-2. Add a sender under the transactional email / sender settings.
-3. Verify the sender using the confirmation email.
-4. Create an API key.
-5. Store that API key only as the Cloudflare Worker secret `BREVO_API_KEY`.
+1. Create/sign in to the Glanzberg Web Resend account.
+2. Add the domain `mail.glanzlaw.com`.
+3. Resend will display the DNS records required for sending verification.
+4. Add those exact records at the DNS provider for `glanzlaw.com`.
+5. Wait for Resend to show the sending domain as verified.
+6. Create a sending API key.
+7. Store that key in Cloudflare as the secret `RESEND_API_KEY`.
 
-Never put the Brevo API key in GitHub Pages, `assets/js/config.js`, or any browser-side JavaScript.
+The Worker is configured to send GlanzLaw messages from:
 
-## Connect a client website
+```text
+website@mail.glanzlaw.com
+```
 
-The frontend configuration should look like:
+## Connect GlanzLaw
+
+After the Worker is deployed, update:
+
+```text
+assets/js/config.js
+```
+
+to:
 
 ```js
 window.GL_SITE_CONFIG = {
@@ -69,17 +115,19 @@ window.GL_SITE_CONFIG = {
 };
 ```
 
-The shared frontend JavaScript adds `_site_id` and `_page_url` to the submitted `FormData`.
+The frontend already adds `_site_id` and `_page_url` to each submission.
 
 ## Add another client
 
-Add another entry to `SITES`:
+Example:
 
 ```js
 aventura_auto: {
   name: "Aventura Auto Specialist",
   recipient: "owner@example.com",
   recipientName: "Owner",
+  senderName: "Aventura Auto Website",
+  senderEmail: "website@mail.example.com",
   allowedOrigins: new Set([
     "https://example.com",
     "https://www.example.com"
@@ -88,17 +136,18 @@ aventura_auto: {
 }
 ```
 
-Then set that site's frontend `siteId` to `aventura_auto`.
+Then verify `mail.example.com` in Resend and set that website's frontend `siteId` to `aventura_auto`.
 
 ## Security properties
 
 - Recipient addresses are server-side only.
+- Sender addresses are server-side only.
 - Each site ID has a strict origin allowlist.
 - Required fields and email format are validated server-side.
-- A honeypot field silently drops simple bot submissions.
-- Submission size and field lengths are capped.
-- Provider credentials live only in Cloudflare secrets.
-- Email is sent as the central Glanzberg Web sender, with the visitor placed in Reply-To.
-- No form data is intentionally stored by the Worker.
+- A honeypot silently discards simple bot submissions.
+- Field lengths are capped.
+- The Resend API key lives only in Cloudflare.
+- The visitor is used only as Reply-To, never as the authenticated From sender.
+- The Worker does not intentionally persist submission contents.
 
-For higher traffic, add Cloudflare Turnstile and/or rate limiting before broad deployment.
+For broader deployment, add Cloudflare Turnstile and rate limiting.
