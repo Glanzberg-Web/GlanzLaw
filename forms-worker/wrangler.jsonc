@@ -1,0 +1,9 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "glanzberg-web-forms",
+  "main": "src/index.js",
+  "compatibility_date": "2026-10-06",
+  "vars": {
+    "FROM_NAME": "Glanzberg Web Forms"
+  }
+}
