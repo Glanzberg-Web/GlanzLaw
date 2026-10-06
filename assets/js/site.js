@@ -23,6 +23,7 @@
   const status = form.querySelector('[data-form-status]');
   const submit = form.querySelector('button[type="submit"]');
   const endpoint = (window.GL_SITE_CONFIG && window.GL_SITE_CONFIG.contactEndpoint || '').trim();
+  const siteId = (window.GL_SITE_CONFIG && window.GL_SITE_CONFIG.siteId || '').trim();
 
   form.addEventListener('submit', async (event) => {
     event.preventDefault();
@@ -41,9 +42,13 @@
     status.dataset.state = '';
 
     try {
+      const payload = new FormData(form);
+      payload.set('_site_id', siteId);
+      payload.set('_page_url', window.location.href);
+
       const response = await fetch(endpoint, {
         method: 'POST',
-        body: new FormData(form),
+        body: payload,
         headers: { Accept: 'application/json' }
       });
       if (!response.ok) throw new Error(`HTTP ${response.status}`);
