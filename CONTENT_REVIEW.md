@@ -12,7 +12,7 @@ The build deliberately avoids unsupported superlatives, settlement values, testi
 3. **Practice descriptions** — confirm Jack wants each listed area promoted on the site, particularly personal injury and premises liability.
 4. **Mediation wording** — Jack's public LinkedIn profile states he has been a certified mediator since October 2022. Confirm whether a specific certifying organization should be named.
 5. **Court admissions** — the site says public records show practice in NY/NJ state and federal matters. It does not list individual admission dates or bars.
-6. **Headshot** — replace the placeholder only with a photograph Jack owns or is licensed to publish.
+6. **Headshot** — Jack’s selected headshot is installed on the Home and legacy profile pages. Confirm permission to publish before public launch.
 7. **Contact-form vendor** — choose the service, configure `assets/js/config.js`, then update `privacy.html` to name the processor.
 8. **Representative matters** — re-check any time-sensitive pending dockets before publication. Published decisions are safer evergreen examples.
 
