@@ -109,3 +109,61 @@ h1,h2,h3,h4{font-family:var(--font-serif);line-height:1.08;margin:0 0 .8rem;lett
   .has-js .nav{left:14px;right:14px}
   .contact-direct .contact-actions{flex-direction:column;align-items:stretch}
 }
+
+
+/* Jack's October site review: shared blue masthead and calm, readable content layouts. */
+.firm-banner{background:linear-gradient(145deg,#0b1f33,#143853);color:#fff;padding:clamp(1.8rem,4vw,3.4rem) 0;text-align:center}
+.firm-banner__brand{display:block;color:#fff;font-family:var(--font-serif);font-size:clamp(2.6rem,7vw,6rem);font-weight:600;line-height:1.06;letter-spacing:-.025em;text-decoration:none;text-wrap:balance}
+.firm-banner__brand:hover{text-decoration:underline;text-decoration-thickness:2px;text-underline-offset:8px}
+.header-inner{justify-content:center;min-height:76px}
+.nav{margin-inline:auto;justify-content:center}
+h1,h2,h3,h4{text-transform:capitalize}
+.case-card h3{text-transform:none}
+p{text-align:justify;hyphens:auto}
+.profile-portrait-block{min-width:0}
+.profile-identity{text-align:center;margin-bottom:1.5rem}
+.profile-identity .eyebrow{margin-bottom:.5rem}
+.profile-identity h1{font-size:clamp(1.75rem,3vw,2.3rem);line-height:1.2;margin:0;text-wrap:balance}
+.profile-portrait-block .portrait{margin-inline:auto}
+.profile-copy h2{font-size:clamp(1.85rem,3.3vw,2.7rem)}
+.profile-copy p{margin-bottom:1.25rem}
+.practice-inline-link{text-underline-offset:3px;text-decoration-thickness:1.5px;font-weight:600}
+.content-title{font-size:clamp(2rem,4vw,2.8rem);margin:0 0 1.5rem}
+.practice-layout{align-items:start}
+.practice-group{margin-bottom:3.2rem}
+.practice-group:last-of-type{margin-bottom:0}
+.practice-group>h2{font-size:clamp(1.85rem,3.3vw,2.55rem);margin:0 0 1.6rem}
+.practice-group .practice-section{scroll-margin-top:125px;padding:0 0 1.5rem;margin:0 0 1.75rem}
+.practice-group .practice-section:last-child{border-bottom:0;padding-bottom:0;margin-bottom:0}
+.practice-group .practice-section h3{font-size:clamp(1.25rem,2vw,1.55rem);line-height:1.3}
+.practice-group .practice-section p{margin:0;max-width:76ch}
+.sidebar nav a{min-height:44px;display:flex;align-items:center}
+.page-hero--mediation{padding:clamp(2.5rem,5vw,4.4rem) 0}
+.page-hero--mediation .mediation-eyebrow{font-size:.98rem;line-height:1.4;font-weight:800;letter-spacing:.14em;margin:0 0 1.2rem;text-transform:uppercase}
+.page-hero--mediation p{max-width:950px;font-size:var(--text-base);line-height:1.78}
+.page-hero--mediation a{color:#fff;text-underline-offset:3px}
+.page-hero--mediation .mediation-fee{font-weight:600;margin-top:1.6rem;color:#fff}
+.adr-training-title{font-size:clamp(1.7rem,3vw,2.25rem);margin-bottom:1.5rem}
+.representative-intro{max-width:850px;margin-bottom:2.2rem}
+.case-search-note{font-size:var(--text-small);color:var(--muted);margin:.2rem 0 .7rem}
+.contact-simple{padding-top:clamp(2rem,4vw,4rem)}
+.contact-simple .content-title{margin-bottom:1.8rem}
+.contact-simple .contact-card h2{font-size:clamp(1.5rem,2.5vw,2rem)}
+.contact-simple .contact-direct h2{font-size:clamp(1.4rem,2.5vw,1.9rem);max-width:none}
+.privacy-content{max-width:850px}
+.privacy-content h2{line-height:1.2}
+@media (max-width:900px){
+  .header-inner{justify-content:center}
+  .nav{justify-content:center}
+  .has-js .header-inner{justify-content:center}
+}
+@media (max-width:640px){
+  .firm-banner{padding:2rem 0}
+  .firm-banner__brand{font-size:clamp(2.35rem,8vw,3.4rem)}
+  .profile-identity{margin-bottom:1.25rem}
+  .practice-group{margin-bottom:2.5rem}
+  .contact-simple .form-wrap{gap:1.5rem}
+}
+@media (max-width:360px){
+  .firm-banner__brand{font-size:2.1rem}
+}
