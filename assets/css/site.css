@@ -113,7 +113,7 @@ h1,h2,h3,h4{font-family:var(--font-serif);line-height:1.08;margin:0 0 .8rem;lett
 
 /* Jack's October site review: shared blue masthead and calm, readable content layouts. */
 .firm-banner{background:linear-gradient(145deg,#0b1f33,#143853);color:#fff;padding:clamp(1.8rem,4vw,3.4rem) 0;text-align:center}
-.firm-banner__brand{display:block;color:#fff;font-family:var(--font-serif);font-size:clamp(2.6rem,7vw,6rem);font-weight:600;line-height:1.06;letter-spacing:-.025em;text-decoration:none;text-wrap:balance}
+.firm-banner__brand{display:block;color:#fff;font-family:var(--font-serif);font-size:clamp(1rem,5.2vw,5.4rem);font-weight:600;line-height:1.06;letter-spacing:-.025em;text-decoration:none;white-space:nowrap}
 .firm-banner__brand:hover{text-decoration:underline;text-decoration-thickness:2px;text-underline-offset:8px}
 .header-inner{justify-content:center;min-height:76px}
 .nav{margin-inline:auto;justify-content:center}
@@ -126,7 +126,7 @@ p{text-align:justify;hyphens:auto}
 .profile-identity h1{font-size:clamp(1.75rem,3vw,2.3rem);line-height:1.2;margin:0;text-wrap:balance}
 .profile-portrait-block .portrait{margin-inline:auto}
 .profile-copy h2{font-size:clamp(1.85rem,3.3vw,2.7rem)}
-.profile-copy p{margin-bottom:1.25rem}
+.profile-copy p{margin-bottom:1.25rem;font-size:clamp(1.125rem,1.55vw,1.28rem);line-height:1.74}
 .practice-inline-link{text-underline-offset:3px;text-decoration-thickness:1.5px;font-weight:600}
 .content-title{font-size:clamp(2rem,4vw,2.8rem);margin:0 0 1.5rem}
 .practice-layout{align-items:start}
@@ -159,11 +159,11 @@ p{text-align:justify;hyphens:auto}
 }
 @media (max-width:640px){
   .firm-banner{padding:2rem 0}
-  .firm-banner__brand{font-size:clamp(2.35rem,8vw,3.4rem)}
+  .firm-banner__brand{font-size:clamp(1rem,5.2vw,2.7rem)}
   .profile-identity{margin-bottom:1.25rem}
   .practice-group{margin-bottom:2.5rem}
   .contact-simple .form-wrap{gap:1.5rem}
 }
 @media (max-width:360px){
-  .firm-banner__brand{font-size:2.1rem}
+  .firm-banner__brand{font-size:clamp(1rem,5.2vw,2rem)}
 }
