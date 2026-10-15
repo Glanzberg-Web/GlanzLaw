@@ -34,3 +34,13 @@
 - Do not attribute Jack's entire career case record to Glanzberg Law Firm, PLLC.
 - Do not portray the Croton-on-Hudson mailing address as an office or claim a New Jersey office.
 - Do not invent case outcomes, client testimonials, settlement amounts, or admissions dates.
+
+
+## Privacy Notice — October 15, 2026 adaptation from Jack’s draft
+- `privacy.html` now reflects Jack’s October privacy draft with the legal name **Glanzberg Law Firm, PLLC**, website **https://glanzlaw.com/**, effective date **October 15, 2026**, and Jack’s confirmed email, phone, and **mailing-only** address.
+- Current website audit: GitHub Pages static hosting; no operational contact form; no first-party advertising pixels, analytics scripts, newsletter signup, scheduling, payment, chat, or document upload in the repo. Contact is by phone and email.
+- Third-party GitHub Pages and communications-provider practices are described cautiously; independent providers control their own processing. No unsupported categorical claims about information sales or provider behavior have been added.
+- **Jack/legal review before final public launch:** confirm the actual email and telecom providers, all deployed proxies/analytics or other injected scripts, and whether any cookies or similar tracking arise beyond the site's source code.
+- Confirm the firm’s actual retention schedule for inquiries, conflict checks, client files, and communications; arrangements for handling data subject requests; security safeguards; and all additional state or other legal privacy notices that may apply. The site intentionally gives no invented fixed retention period or certification of particular security controls.
+- Verify the intended child audience, privacy rights and opt-out requirements, and any third-party processing terms. The public page is a factual adaptation, not a legal compliance certification.
+- Update the effective date and notice if services or policies change. Reconsider the privacy statement if the online contact form is eventually enabled.
